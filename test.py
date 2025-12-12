@@ -14,9 +14,10 @@ end_date= datetime.today()
 start_date = end_date - timedelta(days = 0.5*365)
 
 st.title('Stock RSI and SMA(7 vs 21) signals')
+st.subheader('Users of analysis is responsible for all actions, this is for educational purpose')
 
 #st.sub_title('Users of analysis is responsible for all actions, this is for educational purpose')
-st.set_option('deprecation.showPyplotGlobalUse', False)
+#st.set_option('deprecation.showPyplotGlobalUse', False)
 
 #tickers = st.multiselect('Please provide Stock Symbols from Yahoo Finance ei "AAPL" for Apple Inc', options= ["NEL.OL","NAS.OL","AAPL"] ,default=None, key=None, help=None, on_change=None, args=None, kwargs=None, disabled=False, label_visibility="visible", max_selections=None)
 ticker = st_tags(
@@ -34,7 +35,7 @@ for ticker in ticker:
     ticker_shortrolling= 't_short'
     ticker_longrolling= 't_long'
     t = yf.download(ticker, start = start_date, end = end_date)
-    t = pd.DataFrame(t).drop(['High', 'Open', 'Low', 'Adj Close', 'Volume'], axis=1)
+    t = pd.DataFrame(t).drop(['High', 'Open', 'Low', 'Volume'], axis=1)
     
     
     t["SMA7"]= t["Close"].rolling(window=7).mean()
@@ -65,8 +66,12 @@ for ticker in ticker:
     plt.style.use('fivethirtyeight')
     #fig, ax = plt.subplots(figsize=(16,9))
     plt.rcParams['figure.figsize'] = (20, 20)
+
     ax = plt.subplot2grid((10,1), (0,0), rowspan = 4, colspan = 1)
+    
     ax1 = plt.subplot2grid((10,1), (5,0), rowspan = 2, colspan = 1)
+    
+
 
 
     ax.plot(t.loc[start_date:end_date, :].index, t.loc[start_date:end_date, 'Close'], label='Price')
