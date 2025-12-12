@@ -141,7 +141,8 @@ for ticker in ticker:
     
 
 
-    fig=plt.show()
+    fig = plt.gcf()
     st.pyplot(fig)
+    plt.close(fig)
 
     
